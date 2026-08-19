@@ -1,6 +1,6 @@
 # DSS150P Weeks 1–2 Starter Repository
 
-This repository is intentionally incomplete. Students should inspect and extend it,
+This repository is intentionally incomplete. You should inspect and extend it,
 not copy a completed pipeline.
 
 ## Included sources
@@ -28,4 +28,4 @@ The starter files intentionally stop before a complete data pipeline.
 - Local fallback: run `python src/local_api_server.py`, then call
   `http://localhost:8000/api/orders`
 
-The local option is useful when classroom internet access is unreliable.
+The local option is useful when your internet access is unreliable.
