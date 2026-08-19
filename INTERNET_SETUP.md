@@ -1,4 +1,4 @@
-# Classroom Setup
+# Internet Setup
 
 ## Public REST API option
 Use:
