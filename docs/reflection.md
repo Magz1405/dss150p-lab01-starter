@@ -1,0 +1,13 @@
+# Lab 01 Reflection
+
+**1. Which source would be easiest to integrate into a future pipeline, and why?**
+The `products.parquet` file would be the easiest to integrate. Parquet is a columnar storage format that enforces strict data types, meaning the pipeline does not have to infer or cast types upon ingestion. Our profiling evidence showed zero missing values and zero duplicate records in this dataset, eliminating the need for complex cleaning or deduplication transformations before loading it into a destination data warehouse.
+
+**2. Which source presents the greatest schema or data-quality risk, and what evidence supports your answer?**
+The `customers.csv` file presents a significant data-quality risk. The profiling output demonstrated that the dataset contains missing values in the `email` and `city` columns, as well as fully duplicated rows. Because CSVs lack inherent schema enforcement, changes to column order or data types can easily break a pipeline. Additionally, `orders.json` presents a structural risk due to the nested dictionaries within the `shipping` column, which must be systematically flattened before relational storage. 
+
+**3. What could go wrong if a pipeline is built before the source schema and contract are understood?**
+Building a pipeline without understanding the schema or establishing a data contract leads to highly brittle data architecture. Unanticipated schema evolution (such as new columns or changed data types) will cause pipeline failures. Furthermore, without a contract validating data quality, bad data (such as null primary keys or malformed fields) will silently propagate into the data warehouse, ultimately degrading trust in downstream analytics, reporting, and business decisions.
+
+**4. How do Git, virtual environments, containers, and documentation improve reproducibility for a data-engineering team?**
+These tools ensure that code runs identically across different machines and environments. Git provides version control, allowing teams to track changes, collaborate, and revert to working states safely. Virtual environments isolate Python dependencies, preventing library conflicts between different projects on the same machine. Containers, like Docker, package the database environment (PostgreSQL) so that every developer has the exact same database engine, configuration, and state. Finally, comprehensive documentation acts as the instruction manual, removing guesswork and enabling any team member to seamlessly spin up and understand the project from scratch.

@@ -1,0 +1,53 @@
+# Selected Source: customers.csv
+# Reason: It is highly suitable for a basic contract because it has a clear primary key (customer_id) and structured domains (like customer_segment) that can be strictly validated.
+
+dataset_name: customers
+version: 1.0
+owner: "Data Engineering Team"
+source_type: "Local File System"
+source_format: "csv"
+acquisition_method: "Batch file read using pandas"
+expected_update_pattern: "batch"
+primary_key: "customer_id"
+
+schema:
+  - name: customer_id
+    type: string
+    nullable: false
+    description: "Unique alphanumeric identifier for the customer"
+  - name: first_name
+    type: string
+    nullable: false
+    description: "Customer's first name"
+  - name: last_name
+    type: string
+    nullable: false
+    description: "Customer's last name"
+  - name: email
+    type: string
+    nullable: true
+    description: "Customer's email address (contains missing values)"
+  - name: city
+    type: string
+    nullable: true
+    description: "Customer's city of residence"
+  - name: signup_date
+    type: date
+    nullable: false
+    description: "Date the customer registered"
+  - name: customer_segment
+    type: string
+    nullable: false
+    description: "Business segment category of the customer"
+
+quality_rules:
+  - "customer_id must not be null"
+  - "customer_id must be unique"
+  - "customer_id must start with the letter 'C'"
+  - "email must contain an '@' symbol if not null"
+
+freshness_expectation: "Daily updates"
+duplicate_policy: "deduplicate"
+schema_evolution_policy: "reject"
+consumer: "Marketing Analytics Team"
+notes: "Known data quality risk: The email and city columns contain null values in the source system."

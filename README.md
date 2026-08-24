@@ -1,31 +1,38 @@
-# DSS150P Weeks 1–2 Starter Repository
+# DSS150P Lab 01: Data Sources and Profiling
+**Name:** Feny Lane L. Tolentino 
+**Student Number:** 2024110095
+## Purpose of the Laboratory
+To identify, profile, and document various data sources (CSV, JSON, Parquet, REST API, PostgreSQL) and establish a basic data contract and SQL schema for future ingestion.
 
-This repository is intentionally incomplete. You should inspect and extend it,
-not copy a completed pipeline.
+## Software Requirements
+- Python 3.x
+- Docker Desktop (for PostgreSQL)
+- Git
 
-## Included sources
-- `data/customers.csv`
-- `data/orders.json`
-- `data/products.parquet`
-- optional `products_optional_compare.csv` and `.json`
-- `sql/seed_support_tickets.sql`
-- public REST API configured in `src/fetch_api.py`
+## Exact Steps to Reproduce the Environment
+1. Clone the repository.
+2. Create a virtual environment: `python -m venv venv`
+3. Activate the virtual environment.
+4. Install dependencies: `pip install -r requirements.txt`
+5. Copy `.env.example` to `.env`.
 
-## Quick start
-1. `python -m venv .venv`
-2. Activate the virtual environment.
-3. `pip install -r requirements.txt`
-4. Copy `.env.example` to `.env`.
-5. `docker compose up -d`
-6. Load `sql/seed_support_tickets.sql` into PostgreSQL.
-7. Run the starter scripts.
-8. Extend the code only as required by the laboratory activity.
+## Start and Stop PostgreSQL
+- **Start:** `docker compose up -d`
+- **Stop:** `docker compose down`
 
-The starter files intentionally stop before a complete data pipeline.
+## How to Run Each Python Script
+- Profile sources: `python src/profile_sources.py`
+- Fetch API data: `python src/inspect_api.py`
+- Seed Database: `python src/seed_db.py`
+- Inspect Database: `python src/db_inspect.py`
+- Apply Schema: `python src/apply_schema.py`
 
-## REST API choices
-- Public: `https://jsonplaceholder.typicode.com/posts`
-- Local fallback: run `python src/local_api_server.py`, then call
-  `http://localhost:8000/api/orders`
+## Description of Each Source
+- `customers.csv`: Customer demographic data (contains nulls and duplicates).
+- `orders.json`: Transactional order records (contains nested shipping data).
+- `products.parquet`: Product catalog with strict data types.
+- `api_snapshot.json`: Support tickets fetched via REST API.
+- `support_tickets` (PostgreSQL): Relational data containing ticket statuses.
 
-The local option is useful when your internet access is unreliable.
+## Known Limitations or Unresolved Questions
+- The `customers.csv` file requires a deduplication step and handling for missing `email` and `city` fields before final ingestion.
